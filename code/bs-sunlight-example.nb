@@ -1,0 +1,540 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     17451,        531]
+NotebookOptionsPosition[     16425,        497]
+NotebookOutlinePosition[     16760,        512]
+CellTagsIndexPosition[     16717,        509]
+WindowFrame->Normal
+ContainsDynamic->False*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ StyleBox["Example notebook for plotting sunlight measurement dataset in \
+Mathematica 6.0.\n\n",
+  FontFamily->"Lucida Bright",
+  FontSize->24,
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["For Mathematica 5.x, replace Joined with PlotJoined and BaseStyle \
+with TextStyle.  Uses functions from the BS package. \n",
+  FontFamily->"Lucida Bright",
+  FontSize->18,
+  FontWeight->"Plain"],
+ StyleBox["\n",
+  FontFamily->"Lucida Bright",
+  FontSize->24,
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["Copyright \[Copyright] 2006, 2008, Phillip Stanley-Marbell.",
+  FontFamily->"Lucida Bright",
+  FontSize->14,
+  FontWeight->"Plain",
+  FontSlant->"Italic"]
+}], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.4121336827688503`*^9, 3.412133895735574*^9}, 
+   3.412136804857952*^9},
+ FormatType->"TextForm",
+ Background->RGBColor[
+  0.946166170748455, 0.7557488364995804, 0.21869230182345312`]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["april-28-2006-2-10pm.csv",
+ FontFamily->"Lucida Bright",
+ FontSize->24,
+ FontSlant->"Italic"]], "Input",
+ Evaluatable->False,
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{3.412133389005822*^9},
+ Background->RGBColor[
+  0.8000152590218967, 0.8000152590218967, 0.8000152590218967]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Only", " ", "fraction", " ", 
+     RowBox[{"1", "/", "modulus"}], " ", "of", " ", "the", " ", "data", " ", 
+     "is", " ", "actually", " ", 
+     RowBox[{"used", ".", " ", "If"}], " ", "you", " ", "change", " ", 
+     "modulus", " ", "value"}], ",", " ", 
+    RowBox[{
+    "make", " ", "sure", " ", "to", " ", "also", " ", "update", " ", "the", 
+     " ", "value", " ", "in", " ", "the", " ", "awk", " ", "of", " ", "the", 
+     " ", 
+     RowBox[{"Import", "[", "]"}], " ", "command"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"modulus", " ", "=", " ", "47"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     StyleBox["raw",
+      FontSize->9], 
+     StyleBox[" ",
+      FontSize->10], 
+     StyleBox["=",
+      FontSize->10], 
+     StyleBox[" ",
+      FontSize->10], 
+     StyleBox[
+      RowBox[{"Import", "[", 
+       RowBox[{
+       "\"\<!awk '{if ((NR % 47) == 0) print $0}' \
+april-28-2006-2-10pm.csv\>\"", ",", " ", "\"\<CSV\>\""}], "]"}],
+      FontSize->10]}], 
+    StyleBox[";",
+     FontSize->10]}]}]}]], "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{
+  3.412133389005972*^9, 3.412133580804905*^9, {3.412134037227192*^9, 
+   3.4121341186269913`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", " ", "=", " ", 
+   StyleBox[
+    RowBox[{"BSdata", " ", "/@", " ", 
+     RowBox[{"raw", "[", 
+      RowBox[{"[", 
+       RowBox[{"Range", "[", 
+        RowBox[{"2", ",", " ", 
+         RowBox[{
+          RowBox[{"Length", "[", "raw", "]"}], "-", "1"}]}], "]"}], "]"}], 
+      "]"}]}],
+    FontSize->10]}], 
+  StyleBox[";",
+   FontSize->10]}], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"secsperdatapt", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"BScount", "[", 
+       RowBox[{"raw", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}], "/", 
+      RowBox[{"BSrate", "[", 
+       RowBox[{"raw", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ")"}], "*", "modulus"}]}],
+  FontSize->10], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"secsper24hour", " ", "=", " ", 
+    RowBox[{"3600", "*", "24"}]}], ";"}], "\[IndentingNewLine]", 
+  StyleBox["\[IndentingNewLine]",
+   FontSize->10], 
+  StyleBox[
+   RowBox[{"(*", " ", 
+    RowBox[{"Data", " ", "points", " ", "per", " ", "24", " ", 
+     RowBox[{"hours", ".", "  ", "The"}], " ", "0.25", " ", "premultiplier", 
+     " ", "is", " ", "a", " ", "fudge", " ", "factor", " ", "that", " ", 
+     "makes", " ", "the", " ", "axis", " ", "labeling", " ", "come", " ", 
+     "out", " ", "right"}], "  ", "*)"}],
+   FontSize->10]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   StyleBox["d",
+    FontSize->10], 
+   StyleBox[" ",
+    FontSize->10], 
+   StyleBox["=",
+    FontSize->10], 
+   RowBox[{
+    StyleBox["0.25",
+     FontSize->10], 
+    StyleBox["*",
+     FontSize->10], 
+    StyleBox[" ",
+     FontSize->10], 
+    RowBox[{"secsper24hour", "/", "secsperdatapt"}]}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"selchan", "[", 
+      RowBox[{"0", ",", " ", "data"}], "]"}], "/", "7"}], ",", " ", 
+    RowBox[{"BaseStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}], ",", 
+       RowBox[{"FontSize", "\[Rule]", "10"}]}], "}"}]}], ",", 
+    RowBox[{"AxesLabel", " ", "\[Rule]", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<\>\"", ",", " ", "\"\<\>\""}], "}"}]}], ",", " ", 
+    RowBox[{"Joined", " ", "->", "True"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"FrameLabel", " ", "\[Rule]", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Time (hours)\>\"", ",", " ", "\"\<Voltage\>\""}], "}"}]}], 
+    ",", " ", 
+    RowBox[{
+    "PlotLabel", " ", "->", " ", 
+     "\"\<Average measured average voltage drop per PIN diode\>\""}], ",", 
+    RowBox[{"FrameTicks", " ", "->", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", " ", "\"\<0\>\""}], "}"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "1"}], ",", " ", "\"\<24\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "2"}], ",", " ", "\"\<48\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "3"}], ",", " ", "\"\<72\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "4"}], ",", " ", "\"\<96\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "5"}], ",", " ", "\"\<120\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "6"}], ",", " ", "\"\<144\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "7"}], ",", " ", "\"\<168\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "8"}], ",", " ", "\"\<192\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "9"}], ",", " ", "\"\<216\>\""}], "}"}]}], "}"}],
+        ",", " ", "Automatic"}], "}"}]}], ",", 
+    RowBox[{"PlotRegion", " ", "->", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.35"}], ",", "1"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", "\[IndentingNewLine]",
+     
+    RowBox[{"GridLines", "->", "  ", "Automatic"}], ",", 
+    RowBox[{"AspectRatio", " ", "->", " ", 
+     RowBox[{"1", "/", "7"}]}], ",", 
+    RowBox[{"ImageSize", " ", "->", " ", 
+     RowBox[{"{", 
+      RowBox[{"1024", ",", " ", "Automatic"}], "}"}]}], ",", 
+    RowBox[{"PlotStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Hue", "[", ".6", "]"}], ",", " ", 
+       RowBox[{"PointSize", "[", "0.005", "]"}]}], "}"}]}], ",", 
+    RowBox[{"Frame", " ", "\[Rule]", " ", "True"}]}], "]"}],
+  FontSize->10], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<april-28-2006-2-10pm-weekplot.eps\>\"", ",", " ", "%", " ", ",", " ", 
+    "\"\<EPS\>\""}], "]"}], ";"}]}], "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{
+  3.412133389006184*^9, {3.412133514868141*^9, 3.412133517125518*^9}, {
+   3.4121335606788282`*^9, 3.412133561636386*^9}, {3.4121336179444647`*^9, 
+   3.4121336185579863`*^9}, {3.412133957379232*^9, 3.412133968886951*^9}, {
+   3.412134144625988*^9, 3.412134146145376*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["may-09-2006-6-45-pm.csv",
+ FontFamily->"Lucida Bright",
+ FontSize->24,
+ FontSlant->"Italic"]], "Input",
+ Evaluatable->False,
+ CellGroupingRules->{GroupTogetherGrouping, 10001.},
+ CellChangeTimes->{3.4121334026372843`*^9},
+ Background->RGBColor[
+  0.8000152590218967, 0.8000152590218967, 0.8000152590218967]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Only", " ", "fraction", " ", 
+     RowBox[{"1", "/", "modulus"}], " ", "of", " ", "the", " ", "data", " ", 
+     "is", " ", "actually", " ", 
+     RowBox[{"used", ".", " ", "If"}], " ", "you", " ", "change", " ", 
+     "modulus", " ", "value"}], ",", " ", 
+    RowBox[{
+    "make", " ", "sure", " ", "to", " ", "also", " ", "update", " ", "the", 
+     " ", "value", " ", "in", " ", "the", " ", "awk", " ", "of", " ", "the", 
+     " ", 
+     RowBox[{"Import", "[", "]"}], " ", "command"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"modulus", " ", "=", " ", "229"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     StyleBox["raw",
+      FontSize->9], 
+     StyleBox[" ",
+      FontSize->10], 
+     StyleBox["=",
+      FontSize->10], 
+     StyleBox[" ",
+      FontSize->10], 
+     StyleBox[
+      RowBox[{"Import", "[", 
+       RowBox[{
+       "\"\<!awk '{if ((NR % 229) == 0) print $0}' \
+may-09-2006-6-45-pm.csv\>\"", ",", " ", "\"\<CSV\>\""}], "]"}],
+      FontSize->10]}], 
+    StyleBox[";",
+     FontSize->10]}]}]}]], "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10001.},
+ CellChangeTimes->{
+  3.412133402637429*^9, {3.4121341263120403`*^9, 3.412134127337819*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", " ", "=", " ", 
+   StyleBox[
+    RowBox[{"BSdata", " ", "/@", " ", 
+     RowBox[{"raw", "[", 
+      RowBox[{"[", 
+       RowBox[{"Range", "[", 
+        RowBox[{"2", ",", " ", 
+         RowBox[{
+          RowBox[{"Length", "[", "raw", "]"}], "-", "1"}]}], "]"}], "]"}], 
+      "]"}]}],
+    FontSize->10]}], 
+  StyleBox[";",
+   FontSize->10]}], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"secsperdatapt", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"BScount", "[", 
+       RowBox[{"raw", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}], "/", 
+      RowBox[{"BSrate", "[", 
+       RowBox[{"raw", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ")"}], "*", "modulus"}]}],
+  FontSize->10], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"secsper24hour", " ", "=", " ", 
+   RowBox[{"3600", "*", "24"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  StyleBox[
+   RowBox[{"(*", " ", 
+    RowBox[{"Data", " ", "points", " ", "per", " ", "24", " ", 
+     RowBox[{"hours", ".", "  ", "The"}], " ", "0.5", " ", "premultiplier", 
+     " ", "is", " ", "a", " ", "fudge", " ", "factor", " ", "that", " ", 
+     "makes", " ", "the", " ", "axis", " ", "labeling", " ", "come", " ", 
+     "out", " ", "right"}], " ", "*)"}],
+   FontSize->10]}], "\[IndentingNewLine]", 
+ RowBox[{
+  StyleBox["d",
+   FontSize->10], 
+  StyleBox[" ",
+   FontSize->10], 
+  StyleBox["=",
+   FontSize->10], 
+  RowBox[{
+   StyleBox["0.5",
+    FontSize->10], 
+   StyleBox["*",
+    FontSize->10], 
+   StyleBox[" ",
+    FontSize->10], 
+   RowBox[{"secsper24hour", "/", "secsperdatapt"}]}]}]}], "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10001.},
+ CellChangeTimes->{
+  3.412133402637722*^9, {3.412133622980019*^9, 3.412133623468811*^9}, {
+   3.4121339625337553`*^9, 3.412133963003386*^9}}],
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"selchan", "[", 
+      RowBox[{"0", ",", " ", "data"}], "]"}], "/", "7"}], ",", " ", 
+    RowBox[{"BaseStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}], ",", 
+       RowBox[{"FontSize", "\[Rule]", "8"}]}], "}"}]}], ",", 
+    RowBox[{"AxesLabel", " ", "\[Rule]", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<\>\"", ",", " ", "\"\<\>\""}], "}"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"FrameLabel", " ", "\[Rule]", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Time (hours)\>\"", ",", " ", "\"\<Voltage\>\""}], "}"}]}], 
+    ",", " ", 
+    RowBox[{
+    "PlotLabel", " ", "->", " ", 
+     "\"\<Average measured voltage drop per PIN diode\>\""}], ",", 
+    RowBox[{"Joined", " ", "->", " ", "True"}], ",", 
+    RowBox[{"FrameTicks", " ", "->", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", " ", "\"\<0\>\""}], "}"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "1"}], ",", " ", "\"\<24\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "2"}], ",", " ", "\"\<48\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "3"}], ",", " ", "\"\<72\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "4"}], ",", " ", "\"\<96\>\""}], "}"}], ",", " ",
+          
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "5"}], ",", " ", "\"\<120\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "6"}], ",", " ", "\"\<144\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "7"}], ",", " ", "\"\<168\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "8"}], ",", " ", "\"\<192\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "9"}], ",", " ", "\"\<216\>\""}], "}"}], ",", 
+         "  ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "10"}], ",", " ", "\"\<240\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "11"}], ",", " ", "\"\<266\>\""}], "}"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"d", "*", "12"}], ",", " ", "\"\<290\>\""}], "}"}]}], 
+        "}"}], ",", " ", "Automatic"}], "}"}]}], ",", 
+    RowBox[{"PlotRegion", " ", "->", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.3"}], ",", "1"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", "\[IndentingNewLine]",
+     
+    RowBox[{"GridLines", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"Automatic", ",", 
+         RowBox[{"{", 
+          RowBox[{"GrayLevel", "[", "0.7", "]"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"Automatic", ",", 
+         RowBox[{"{", 
+          RowBox[{"GrayLevel", "[", "0.85", "]"}], "}"}]}], "}"}]}], "}"}]}], 
+    ",", 
+    RowBox[{"AspectRatio", "->", " ", 
+     RowBox[{"1", "/", "7"}]}], ",", 
+    RowBox[{"ImageSize", " ", "->", " ", 
+     RowBox[{"{", 
+      RowBox[{"1024", ",", " ", "Automatic"}], "}"}]}], ",", 
+    RowBox[{"PlotStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Hue", "[", ".6", "]"}], ",", " ", 
+       RowBox[{"PointSize", "[", "0.003", "]"}]}], "}"}]}], ",", 
+    RowBox[{"Frame", " ", "\[Rule]", " ", "True"}]}], "]"}],
+  FontSize->10], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<may-09-2006-6-45-pm-weekplot.eps\>\"", ",", " ", "%", " ", ",", " ", 
+    "\"\<EPS\>\""}], "]"}], ";"}]}], "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10001.},
+ CellChangeTimes->{
+  3.4121334026380873`*^9, 3.412133522822505*^9, {3.41213355717244*^9, 
+   3.41213355788964*^9}, {3.41213397782952*^9, 3.41213399413279*^9}, {
+   3.4121341377949743`*^9, 3.4121341394184437`*^9}}]
+}, Open  ]]
+},
+WindowSize->{860, 682},
+WindowMargins->{{Automatic, 44}, {Automatic, 0}},
+FrontEndVersion->"6.0 for Mac OS X x86 (32-bit) (June 19, 2007)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[568, 21, 931, 28, 208, "Input",
+ Evaluatable->False],
+Cell[CellGroupData[{
+Cell[1524, 53, 330, 8, 59, "Input",
+ Evaluatable->False,
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[1857, 63, 1319, 39, 73, "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[3179, 104, 5409, 155, 223, "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8625, 264, 331, 8, 59, "Input",
+ Evaluatable->False,
+ CellGroupingRules->{GroupTogetherGrouping, 10001.}],
+Cell[8959, 274, 1294, 38, 73, "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10001.}],
+Cell[10256, 314, 1843, 57, 103, "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10001.}],
+Cell[12102, 373, 4307, 121, 148, "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10001.}]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
